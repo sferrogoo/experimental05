@@ -1,0 +1,8 @@
+{
+	"version": 3,
+	"file": "three_app.js",
+	"sources": [
+		"three_app.py"
+	],
+	"mappings": "AAAA;AA4BA;AA5BA;AACA;AACA;AACA;AAEA;AACA;AACA;AAEA;AAGA;AACA;AACA;AACA;AAEA;AAEA;AACA;AAAA;AAAA;AAGA;AACA;AAAA;AAEA;AAAA;AAEA;AAAA"
+}

@@ -16,5 +16,6 @@ def test_index_for_three_js(client):
     rv = client.get('/')
     assert rv.status_code == 200
     assert b'<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>' in rv.data
+    assert b'<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>' in rv.data
     assert b'<script src="/static/js/three_app.js"></script>' in rv.data
     assert b'<div id="container">' in rv.data
