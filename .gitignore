@@ -1,0 +1,10 @@
+# Python generated files
+__pycache__/
+*.pyc
+
+# Transcrypt generated files
+__target__/
+static/js/*.js
+static/js/*.project
+static/js/*.map
+static/js/*.py
