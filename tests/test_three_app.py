@@ -26,9 +26,33 @@ def test_index_for_gui(client):
     assert b'<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>' in rv.data
 
 def test_index_for_stats(client):
+
     """Test the index page for stats.js."""
+
     rv = client.get('/')
+
     assert rv.status_code == 200
+
     assert b'<script src="/static/js/stats.js"></script>' in rv.data
+
     assert b'var stats = new Stats();' in rv.data
+
     assert b'document.body.appendChild(stats.dom);' in rv.data
+
+
+
+def test_index_for_new_shapes(client):
+
+    """Test the index page for new shape options."""
+
+    rv = client.get('/')
+
+    assert rv.status_code == 200
+
+    assert b'<option value="cone">Cone</option>' in rv.data
+
+    assert b'<option value="cylinder">Cylinder</option>' in rv.data
+
+    assert b'<option value="dodecahedron">Dodecahedron</option>' in rv.data
+
+

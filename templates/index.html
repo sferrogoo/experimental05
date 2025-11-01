@@ -5,10 +5,33 @@
     <style>
         body { margin: 0; }
         canvas { display: block; }
+        #ui-controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+        #ui-controls select, #ui-controls button {
+            display: block;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div id="container"></div>
+    <div id="ui-controls">
+        <select id="shape-select">
+            <option value="cube">Cube</option>
+            <option value="sphere">Sphere</option>
+            <option value="torus">Torus</option>
+            <option value="cone">Cone</option>
+            <option value="cylinder">Cylinder</option>
+            <option value="dodecahedron">Dodecahedron</option>
+        </select>
+        <button id="add-shape-btn">Add Shape</button>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>
