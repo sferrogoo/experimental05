@@ -47,9 +47,7 @@ class ThreeApp:
 
 
 
-        self.stats = __new__(Stats())
 
-        document.body.appendChild(self.stats.dom)
 
 
 
