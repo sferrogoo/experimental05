@@ -8,12 +8,25 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+    pip install pytest
+
+ENV PATH="/root/.local/bin:${PATH}"
 
 # Copy the application code
-COPY src/ .
+COPY src/ ./src
 
-ENV FLASK_APP=main.py
+# Compile transcrypt files
+RUN transcrypt -b -n src/hello.py
+RUN mkdir -p static/js && mv src/__target__/* static/js/
+
+COPY templates/ ./templates
+COPY tests/ ./tests
+
+# Run tests
+RUN pytest
+
+ENV FLASK_APP=src/main.py
 
 # Command to run the application
 EXPOSE 5000

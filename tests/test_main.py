@@ -10,8 +10,10 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_hello_world(client):
-    """Test the hello world endpoint."""
+def test_index(client):
+    """Test the index page."""
     rv = client.get('/')
-    assert rv.data == b'hello world'
+    assert rv.status_code == 200
+    assert b'<script src="/static/js/org.transcrypt.__runtime__.js"></script>' in rv.data
+    assert b'<script src="/static/js/hello.js"></script>' in rv.data
 
