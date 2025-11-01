@@ -1,3 +1,4 @@
+
 import pytest
 import sys
 import os
@@ -10,9 +11,10 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_index(client):
-    """Test the index page."""
+def test_index_for_three_js(client):
+    """Test the index page for three.js scripts."""
     rv = client.get('/')
     assert rv.status_code == 200
-    assert b'<script src="/static/js/org.transcrypt.__runtime__.js"></script>' in rv.data
-
+    assert b'<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>' in rv.data
+    assert b'<script src="/static/js/three_app.js"></script>' in rv.data
+    assert b'<div id="container">' in rv.data

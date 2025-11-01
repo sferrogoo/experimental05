@@ -1,33 +1,28 @@
-# Python base image
+# Dockerfile for the python application
+
+# Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
-# Set the working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file
+# Copy the requirements file into the container at /app
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt && \
-    pip install pytest
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-ENV PATH="/root/.local/bin:${PATH}"
-
-# Copy the application code
-COPY src/ ./src
-
-# Compile transcrypt files
-RUN transcrypt -b -n src/hello.py
-RUN mkdir -p static/js && mv src/__target__/* static/js/
-
+# Copy the rest of the application's code into the container at /app
+COPY src/ .
+COPY static/ ./static
 COPY templates/ ./templates
 COPY tests/ ./tests
 
-# Run tests
-RUN pytest
+# Make port 80 available to the world outside this container
+EXPOSE 80
 
-ENV FLASK_APP=src/main.py
+# Define environment variable
+ENV NAME World
 
-# Command to run the application
-EXPOSE 5000
-CMD ["flask", "run", "--host=0.0.0.0"]
+# Run app.py when the container launches
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
