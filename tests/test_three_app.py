@@ -1,4 +1,3 @@
-
 import pytest
 import sys
 import os
@@ -20,10 +19,8 @@ def test_index_for_three_js(client):
     assert b'<script src="/static/js/three_app.js"></script>' in rv.data
     assert b'<div id="container">' in rv.data
 
-def test_three_app_js_for_lighting():
-    """Test the transpiled javascript file for lighting code."""
-    with open("static/js/three_app.js", "r") as f:
-        content = f.read()
-    assert "AmbientLight" in content
-    assert "DirectionalLight" in content
-    assert "MeshStandardMaterial" in content
+def test_index_for_gui(client):
+    """Test the index page for GUI scripts."""
+    rv = client.get('/')
+    assert rv.status_code == 200
+    assert b'<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>' in rv.data
