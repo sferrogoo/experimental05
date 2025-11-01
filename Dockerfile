@@ -1,11 +1,20 @@
+# Python base image
 FROM python:3.11-slim
 
+# Set the working directory
 WORKDIR /app
 
-COPY ./requirements.txt /app/
+# Copy the requirements file
+COPY requirements.txt .
+
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./src /app/src
-COPY ./tests /app/tests
+# Copy the application code
+COPY src/ .
 
-CMD ["pytest", "tests/"]
+ENV FLASK_APP=main.py
+
+# Command to run the application
+EXPOSE 5000
+CMD ["flask", "run", "--host=0.0.0.0"]
