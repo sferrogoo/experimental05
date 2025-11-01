@@ -9,9 +9,16 @@ def run():
 
     controls = __new__(THREE.OrbitControls(camera, renderer.domElement))
 
+    # Add lighting
+    ambient_light = __new__(THREE.AmbientLight(0x404040))  # soft white light
+    scene.add(ambient_light)
+
+    directional_light = __new__(THREE.DirectionalLight(0xffffff, 0.5))
+    directional_light.position.set(1, 1, 1)
+    scene.add(directional_light)
 
     geometry = __new__(THREE.BoxGeometry(1, 1, 1))
-    material = __new__(THREE.MeshBasicMaterial({'color': 0x00ff00}))
+    material = __new__(THREE.MeshStandardMaterial({'color': 0x00ff00}))
     cube = __new__(THREE.Mesh(geometry, material))
     scene.add(cube)
 

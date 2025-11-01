@@ -1,5 +1,3 @@
-# Dockerfile for the python application
-
 # Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
@@ -13,16 +11,17 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application's code into the container at /app
-COPY src/ .
-COPY static/ ./static
-COPY templates/ ./templates
-COPY tests/ ./tests
+COPY . .
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Transpile Python to JavaScript
+RUN transcrypt -b -n src/three_app.py && \
+    cp src/__target__/three_app.js static/js/three_app.js
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
 
 # Define environment variable
-ENV NAME World
+ENV NAME="World"
 
-# Run app.py when the container launches
-CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
+# Run main.py when the container launches
+CMD ["python", "src/main.py"]
